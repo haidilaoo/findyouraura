@@ -19,11 +19,11 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(640, 480);
+  createCanvas(windowWidth, windowHeight);
   
   // Create the video
   video = createCapture(VIDEO, { flipped: true });
-  video.size(640, 480);
+  video.size(windowWidth, windowHeight);
   video.hide();
 
   bodySegmentation.detectStart(video, gotResults);
