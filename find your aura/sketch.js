@@ -1,3 +1,5 @@
+
+
 let bodySegmentation;
 let video;
 let segmentation;
@@ -23,7 +25,7 @@ function setup() {
   
   // Create the video
   video = createCapture(VIDEO, { flipped: true });
-  video.size(windowWidth, windowHeight);
+  video.size(640, 480);
   video.hide();
 
   bodySegmentation.detectStart(video, gotResults);
@@ -68,7 +70,7 @@ function draw() {
     }
 
     img.updatePixels();  // Update the video pixels after manipulation
-    image(img, 0, 0);    // Display the video with the mask applied
+    image(img, 0, 0, width, height, 0, 0, img.width, img.height, COVER);    // Display the video with the mask applied
   }
   
   // Display the label on the canvas
