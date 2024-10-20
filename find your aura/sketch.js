@@ -90,7 +90,7 @@ function gotResult(results) {
   
 }
 
-function mousePressed() {
-  let fs = fullscreen();
-  fullscreen(!fs); // Toggle fullscreen mode on click
-}
+// function mousePressed() {
+//   let fs = fullscreen();
+//   fullscreen(!fs); // Toggle fullscreen mode on click
+// }
