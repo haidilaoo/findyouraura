@@ -29,12 +29,11 @@ function setup() {
   video.hide();
 
   bodySegmentation.detectStart(video, gotResults);
-  
   classifier.classifyStart(video, gotResult); //classify video
 }
 
 function draw() {
-  background(0, 102, 255); // Green background
+  // background(0, 102, 255); // Green background
 
   if (segmentation) {
     // Draw the video and mask the background

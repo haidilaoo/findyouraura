@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/addons/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
+
+</head>
+
+<body>
+  <main>
+    <div id="slide-up" onclick="togglePalette()"><img id="arrow" src="assets/arrow-up.svg">
+      <div id="palette">
+        <div class="display-flex flex-direction-column gap-8">
+          <img src="assets/face.svg" style="width: 128px; height: 127px" ;>
+          <button onclick="window.location.href='new_emotion.html'">+ new emotion</button>
+          <!-- <div id="emotion"></div> -->
+          <ul id="emotionList"></ul> <!-- List to display emotions -->
+        </div>
+      </div>
+    </div>
+    <!-- <div id="overlay" class="overlay">
+      <div class="overlay-card">
+        <button class="close-btn" onclick="closeOverlay()">✖</button>
+        <h2>Add New Emotion</h2>
+        <p>Describe your new emotion here.</p>
+        
+        <div id="overlayCanvasContainer"></div>
+      </div>
+    </div> -->
+  </main>
+  <script src="palette_sketch.js"></script>
+  <!-- <script src="new_emotion.js"></script> -->
+  <script>
+
+    // When the page loads, retrieve the saved emotion label from localStorage
+    window.onload = function () {
+
+      // const emotion = localStorage.getItem('emotionLabel'); // Get the saved label
+      // if (emotion) {
+      //   document.getElementById('emotion').innerText = emotion;  // Display it
+      // }
+
+      // Retrieve the emotions array from localStorage
+      const emotions = JSON.parse(localStorage.getItem('emotionLabels')) || [];
+      console.log(emotions);
+      // Get the <ul> element where emotions will be displayed
+      const emotionList = document.getElementById('emotionList');
+
+      // Display each emotion as a list item
+      emotions.forEach(function (emotion) {
+        const li = document.createElement('li');
+        li.textContent = emotion;
+        // Add an onclick event to set the texture based on the emotion
+        li.onclick = function () {
+          setEmotionTexture(emotion);
+        };
+        emotionList.appendChild(li);
+      });
+    };
+
+    function setEmotionTexture(emotion) {
+      // Update the particle texture if the emotion exists in the textures object
+      if (textures[emotion]) {
+        particle_texture = textures[emotion];
+        // emotion_sound = emotionSounds[emotion];
+      } else {
+        particle_texture = textures.default; // Fallback to default if emotion texture is missing
+        // emotion_sound = emotionSounds.default;
+      }
+
+      // Update the particle system with the new texture
+      ps.img = particle_texture;
+
+    }
+
+
+
+    function togglePalette() {
+
+      const slideUp = document.getElementById("slide-up");
+      const arrow = document.getElementById("arrow");
+
+      if (slideUp.style.bottom === "235px") {
+        slideUp.style.bottom = "0px"; // Close
+        arrow.classList.remove("rotate"); // Reset rotation
+      } else {
+        slideUp.style.bottom = "235px"; // Open
+        arrow.classList.add("rotate"); // Apply rotation
+      }
+    }
+
+    function openOverlay() {
+      event.stopPropagation(); // Prevents the click event from propagating to #slide-up
+      document.getElementById("overlay").style.display = "flex";
+    }
+
+    function closeOverlay() {
+      event.stopPropagation(); // Prevents the click event from propagating to #slide-up
+      document.getElementById("overlay").style.display = "none";
+    }
+  </script>
+</body>
+
+</html>
