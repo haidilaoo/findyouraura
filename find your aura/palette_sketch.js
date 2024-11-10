@@ -44,7 +44,7 @@ function setup() {
 }
 
 function draw() {
-  background(255, 254, 251);
+  background(240,240, 240);
 
 
 
@@ -142,7 +142,7 @@ function keyPressed() {
 
 function clearCanvas() {
   // Clear the canvas by filling it with white color
-  background(255, 254, 251);
+  background(240, 240, 240);
   // Clear the array of smoke particles
   smokeParticles = [];
   Particles = []; // Array to hold trailing particles

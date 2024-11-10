@@ -11,25 +11,21 @@
 
 <body>
   <main>
-    <div id="slide-up" onclick="togglePalette()"><img id="arrow" src="assets/arrow-up.svg">
+   <a href="index.html"><img class="title-svg" src="assets/title.svg"></a>
+    <div id="slide-up" onclick="togglePalette()"><img style="color: white;" id="arrow" src="assets/arrow-up.svg">
       <div id="palette">
-        <div class="display-flex flex-direction-column gap-8">
-          <img src="assets/face.svg" style="width: 128px; height: 127px" ;>
-          <button onclick="window.location.href='new_emotion.html'">+ new emotion</button>
-          <!-- <div id="emotion"></div> -->
-          <ul id="emotionList"></ul> <!-- List to display emotions -->
+        <div class="display-flex gap-8 align-center">
+          <div class="display-flex gap-8" id="emotionList"></div>
+          <div class="display-flex flex-direction-column gap-8">
+            <button  class="remove-default-btn-style display-flex flex-direction-column gap-16 align-center"
+              onclick="window.location.href='new_emotion.html'"> <img src="assets/face.svg"
+                style="width: 127px; height: 128px; margin-bottom: 4px; ">
+              + new emotion</button>
+          </div>
+
         </div>
       </div>
     </div>
-    <!-- <div id="overlay" class="overlay">
-      <div class="overlay-card">
-        <button class="close-btn" onclick="closeOverlay()">✖</button>
-        <h2>Add New Emotion</h2>
-        <p>Describe your new emotion here.</p>
-        
-        <div id="overlayCanvasContainer"></div>
-      </div>
-    </div> -->
   </main>
   <script src="palette_sketch.js"></script>
   <!-- <script src="new_emotion.js"></script> -->
@@ -55,13 +51,38 @@
 
       // Display each emotion as a list item
       emotions.forEach(function (emotion) {
-        const li = document.createElement('li');
-        li.textContent = emotion;
+        const img = document.createElement('img'); // Use 'img' if using image URLs, or 'svg' for inline SVG
+        const p = document.createElement('p');
+        // Set the img source based on emotion
+        if (emotion === 'happy') {
+          img.src = 'assets/yellow_particle.svg'; // Set to the path of your happy image
+        } else if (emotion === 'sad') {
+          img.src = 'assets/blue_particle.svg'; // Set to the path of your sad image
+        } else if (emotion === 'meh') {
+          img.src = 'assets/green_particle.png'; // Set to the path of your meh image
+        }
+
+        // Set image dimensions
+        img.style.width = '150px'; // Set width in pixels
+        img.style.height = '150px'; // Set height in pixels
+
+        p.textContent = emotion;
         // Add an onclick event to set the texture based on the emotion
-        li.onclick = function () {
+        p.onclick = function () {
           setEmotionTexture(emotion);
         };
-        emotionList.appendChild(li);
+        // Append the image and text to the container
+        const container = document.createElement('div');
+        container.appendChild(img);
+        container.appendChild(p);
+        container.style = "display: flex; align-items: center; flex-direction:column; cursor: pointer;"
+
+
+        container.onclick = function () {
+          setEmotionTexture(emotion);
+        };
+        // emotionList.appendChild(p);
+        emotionList.appendChild(container);
       });
     };
 

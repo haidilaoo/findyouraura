@@ -2,6 +2,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 * {
@@ -9,9 +10,11 @@ body {
 }
 
 
+
 canvas {
   display: block;
   z-index: 1;
+
 }
 
 .display-flex {
@@ -24,6 +27,14 @@ canvas {
 
 .gap-8 {
   gap: 8px;
+}
+
+.gap-16 {
+  gap: 16px;
+}
+
+.align-center {
+  align-items: center;
 }
 
 .center-top-of-canvas {
@@ -52,16 +63,29 @@ canvas {
     color: purple;
     text-decoration: none;
   }
+}
 
+.title-svg {
+  background: none;
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 150px;
+}
 
+.image-container {
+  width: 100%;
+  overflow: hidden;
 }
 
 #moving-aura-gif {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 55%;
+  left: 25%;
   transform: translate(-50%, -50%);
-  width: 1400px;
+  width: 950px; /* cannot exceed 950px if not it will cause scrolling */
+  /* max-width: 100%;
+  height: auto;  */
   /* color: white; */
   filter: blur(50px);
   z-index: 3;
@@ -102,7 +126,8 @@ canvas {
   height: 25px;
   flex-shrink: 0;
   border-radius: 10px 10px 0px 0px;
-  background: #E5EEF1;
+  background: #0066FF;
+
 
   position: fixed;
   bottom: 0;
@@ -134,9 +159,26 @@ canvas {
     width: 1280px;
     /* transform: rotate(90deg); */
     flex-shrink: 0;
+    padding: 16px;
+
     border-radius: 10px 10px 0px 0px;
     background: #E5EEF2;
+    box-shadow: 0 -10px 54px rgba(3, 32, 75, 0.06);
+
   }
+}
+
+.remove-default-btn-style {
+  /* Remove default styling */
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+
+  /* Reset appearance */
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
 }
 
 /* end of palette styles */
