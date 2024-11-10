@@ -1,3 +1,63 @@
+@font-face {
+  font-family: 'arista_pro_trialbold';
+  src: url('fonts/arista-pro-bold-trial-webfont.woff2') format('woff2'),
+    url('fonts/arista-pro-bold-trial-webfont.woff') format('woff'),
+    url('fonts/arista_pro/Arista-Pro-Bold-trial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+
+
+@font-face {
+  font-family: 'arista_pro_trialfat';
+  src: url('fonts/arista-pro-fat-trial-webfont.woff2') format('woff2'),
+    url('fonts/arista-pro-fat-trial-webfont.woff') format('woff'),
+    url('fonts/arista_pro/Arista-Pro-Fat-trial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+
+
+@font-face {
+  font-family: 'arista_pro_triallight';
+  src: url('fonts/arista-pro-light-trial-webfont.woff2') format('woff2'),
+    url('fonts/arista-pro-light-trial-webfont.woff') format('woff'),
+    url('fonts/arista_pro/Arista-Pro-Light-trial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+
+
+@font-face {
+  font-family: 'arista_pro_alternatebold';
+  src: url('fonts/arista-pro-alternate-bold-trial-webfont.woff2') format('woff2'),
+    url('fonts/arista-pro-alternate-bold-trial-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+
+
+@font-face {
+  font-family: 'arista_pro_alternatelight';
+  src: url('fonts/arista-pro-alternate-light-trial-webfont.woff2') format('woff2'),
+    url('fonts/arista-pro-alternate-light-trial-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 html,
 body {
   margin: 0;
@@ -6,7 +66,8 @@ body {
 }
 
 * {
-  font-family: Helvetica, Sans-Serif;
+  /* font-family: Helvetica, Sans-Serif; */
+  font-family: 'arista_pro_triallight', sans-serif;
 }
 
 
@@ -83,7 +144,8 @@ canvas {
   top: 55%;
   left: 25%;
   transform: translate(-50%, -50%);
-  width: 950px; /* cannot exceed 950px if not it will cause scrolling */
+  width: 950px;
+  /* cannot exceed 950px if not it will cause scrolling */
   /* max-width: 100%;
   height: auto;  */
   /* color: white; */
@@ -152,8 +214,40 @@ canvas {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
-
   }
+
+  #newemotion-btn {
+    #face-svg {
+      width: 127px;
+      height: 128px;
+      margin-bottom: 4px;
+      opacity: 0.5;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    span {
+      font-family: 'arista_pro_triallight';
+      transition: font-weight 0.3s ease;
+    }
+    
+  }
+
+  #newemotion-btn:hover {
+    #face-svg {
+      opacity: 1;
+      transform: scale(1.1);
+      /* Scales image on hover */
+    }
+
+    span {
+      font-family: 'arista_pro_trialbold' !important;
+    }
+  }
+ 
+
+ 
+
+ 
 
   .rotate {
     transform: rotate(180deg);
@@ -176,6 +270,9 @@ canvas {
   }
 }
 
+
+
+
 .remove-default-btn-style {
   /* Remove default styling */
   background: none;
@@ -188,6 +285,7 @@ canvas {
   font: inherit;
   cursor: pointer;
 }
+
 
 /* end of palette styles */
 
@@ -209,30 +307,93 @@ canvas {
 
 /* Card styling inside the overlay */
 .overlay-card {
-  
+
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   text-align: center;
-  max-width: 95%; /* Maximum width is 90% of the viewport */
-  max-height: 95%; /* Maximum height is 90% of the viewport */
-  object-fit: contain; /* Ensures the GIF maintains its aspect ratio */
-  transition: transform 0.3s ease; /* Smooth transition for scaling */
+  max-width: 95%;
+  /* Maximum width is 90% of the viewport */
+  max-height: 95%;
+  /* Maximum height is 90% of the viewport */
+  object-fit: contain;
+  /* Ensures the GIF maintains its aspect ratio */
+  transition: transform 0.3s ease;
+  /* Smooth transition for scaling */
 }
 
 /* Zoom effect on hover */
 .overlay-card:hover {
-  transform: scale(1.7) /* Scale the GIF by 10% when hovered */
+  transform: scale(1.7)
+    /* Scale the GIF by 10% when hovered */
 }
 
 /* Close button styling */
 .close-btn {
   position: absolute;
-  top: 20px; /* Distance from the top */
-  right: 20px; /* Distance from the right */
+  top: 20px;
+  /* Distance from the top */
+  right: 20px;
+  /* Distance from the right */
   background: transparent;
   border: none;
   color: white;
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
+}
+
+/* detecting new-emotion pg styles */
+.loader {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  height: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    linear-gradient(#222 0 0) top/100% 40% no-repeat,
+    radial-gradient(farthest-side, #000 95%, #0000) 50%/8px 8px no-repeat #fff;
+  animation: 2.5s infinite;
+  animation-name: l8-1, e8-2;
+}
+
+@keyframes l8-1 {
+
+  0%,
+  40%,
+  100% {
+    background-size: 100% 40%, 8px 8px
+  }
+
+  50%,
+  80% {
+    background-size: 100% 0%, 8px 8px
+  }
+}
+
+@keyframes l8-2 {
+
+  0%,
+  50% {
+    background-position: top, 50% 50%
+  }
+
+  60%,
+  65% {
+    background-position: top, 70% 50%
+  }
+
+  70%,
+  75% {
+    background-position: top, 30% 50%
+  }
+
+  90%,
+  100% {
+    background-position: top, 50% 50%
+  }
 }
