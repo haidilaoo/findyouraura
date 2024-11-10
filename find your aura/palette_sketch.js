@@ -2,7 +2,7 @@
 var wind_chime;
 var currentSound = null;
 let emotion_sound = null;
-let emotionSounds = {};
+const emotionSounds = {};
 var isFadingOut = false;
 
 // texture for the particle
@@ -28,12 +28,12 @@ function preload() {
   textures.happy = loadImage("assets/yellow_particle.svg");
   textures.default = loadImage("assets/green_particle.png"); // Default texture
   // particle_texture = loadImage("assets/green_particle.png");
-  wind_chime = loadSound('sounds/windchime.wav');
+  // wind_chime = loadSound('sounds/windchime.wav');
 
   //causing some issue for some reason 
-  // emotionSounds.happy = loadSound('sounds/windchime.wav');
-  // emotionSounds.sad = loadSound('sounds/sad.wav');
-  // emotionSounds.default = loadSound('sounds/windchim.wav');
+  emotionSounds.happy = loadSound('sounds/windchime.wav');
+  emotionSounds.sad = loadSound('sounds/sad.wav');
+  emotionSounds.default = loadSound('sounds/windchime.wav');
 
 
 }
@@ -43,6 +43,7 @@ function setup() {
   //set the canvas size
   createCanvas(windowWidth, windowHeight);
   particle_texture = textures.default; // Default texture
+  currentSound = emotionSounds.default; //Default sound
   //initialize our particle system
   ps = new ParticleSystem(0, createVector(width / 2, height - 60), particle_texture);
 }
@@ -72,14 +73,15 @@ function draw() {
     smokeParticles.push(smoke);
 
     //sound whne mouse is pressed
-    playSound(wind_chime);
+    if (currentSound && !currentSound.isPlaying()) {
+    playSound(currentSound);
+    }
     // Play the emotion sound only if it's defined
     // if (emotion_sound) {
     //   playSound(emotion_sound);
     // }
   } else {
     // Stop the current sound if playing
-
     isFadingOut = true; // Start fading out
 
     // If sound is fading out, gradually decrease volume

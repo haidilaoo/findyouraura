@@ -35,6 +35,14 @@
   <!-- <script src="new_emotion.js"></script> -->
   <script>
 
+    // Event listener to handle page visibility change -> stop sound when user leaves browser
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && currentSound && currentSound.isPlaying()) {
+        currentSound.stop(); // Stop sound if the page is hidden
+        isFadingOut = false; // Reset fading state
+      }
+    });
+
     // When the page loads, retrieve the saved emotion label from localStorage
     window.onload = function () {
 
@@ -65,14 +73,33 @@
       // Update the particle texture if the emotion exists in the textures object
       if (textures[emotion]) {
         particle_texture = textures[emotion];
-        // emotion_sound = emotionSounds[emotion];
+
+        console.log("emotion texture set: " + particle_texture);
+
       } else {
         particle_texture = textures.default; // Fallback to default if emotion texture is missing
-        // emotion_sound = emotionSounds.default;
+        console.log("default emotion texture set: " + textures.default);
       }
 
       // Update the particle system with the new texture
       ps.img = particle_texture;
+
+      // Update the current sound
+      // if (emotionSounds[emotion]) {
+      //   currentSound = emotionSounds[emotion];
+      //   console.log("emotion sound set: " + currentSound);
+      // } else {
+      //   currentSound = emotionSounds.default;
+      //   console.log("default emotion sound set: " + emotionSounds.default);
+      // }
+
+      // Stop the current sound before switching -> to fix persisting fading sound when switching issue
+      if (currentSound && currentSound.isPlaying()) {
+        currentSound.stop();
+      }
+      // Set the new sound based on the emotion
+      currentSound = emotionSounds[emotion] || emotionSounds.default;
+      isFadingOut = false; // Reset fade-out when switching
 
     }
 
