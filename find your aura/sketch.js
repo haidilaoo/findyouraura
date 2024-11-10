@@ -55,13 +55,13 @@ function draw() {
         
                 if (segmentation.mask.pixels[index + 3] !== 0) {
           // Apply a green mask over the bg(non-person pixels)
-          img.pixels[mirroredIndex] = 221;   // Red channel
-          img.pixels[mirroredIndex + 1] = 255; // Green channel
-          img.pixels[mirroredIndex + 2] = 252;   // Blue channel
+          img.pixels[mirroredIndex] = 217;   // Red channel
+          img.pixels[mirroredIndex + 1] = 235; // Green channel
+          img.pixels[mirroredIndex + 2] = 254;   // Blue channel
         } else {
           // For the person , change it to blue
-          img.pixels[mirroredIndex] = 180;   // Red channel
-          img.pixels[mirroredIndex + 1] = 133;   // Green channel
+          img.pixels[mirroredIndex] = 0;   // Red channel
+          img.pixels[mirroredIndex + 1] = 102;   // Green channel
           img.pixels[mirroredIndex + 2] = 255; // Blue channel
           img.pixels[mirroredIndex + 3] = 255; // Set alpha to opaque
         }

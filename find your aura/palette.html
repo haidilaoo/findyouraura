@@ -11,13 +11,13 @@
 
 <body>
   <main>
-   <a href="index.html"><img class="title-svg" src="assets/title.svg"></a>
+    <a href="index.html"><img class="title-svg" src="assets/title.svg"></a>
     <div id="slide-up" onclick="togglePalette()"><img style="color: white;" id="arrow" src="assets/arrow-up.svg">
       <div id="palette">
         <div class="display-flex gap-8 align-center">
           <div class="display-flex gap-8" id="emotionList"></div>
           <div class="display-flex flex-direction-column gap-8">
-            <button  class="remove-default-btn-style display-flex flex-direction-column gap-16 align-center"
+            <button class="remove-default-btn-style display-flex flex-direction-column gap-16 align-center"
               onclick="window.location.href='new_emotion.html'"> <img src="assets/face.svg"
                 style="width: 127px; height: 128px; margin-bottom: 4px; ">
               + new emotion</button>
@@ -25,6 +25,13 @@
 
         </div>
       </div>
+    </div>
+    <div id="instruction" onclick="openOverlay(event)">
+      <img src="assets/icon-help.svg">
+    </div>
+    <div id="instruction-gif" class="overlay">
+      <button class="close-btn" onclick="closeOverlay(event)">×</button>
+      <img class="overlay-card" src="assets/instruction.gif">
     </div>
   </main>
   <script src="palette_sketch.js"></script>
@@ -111,7 +118,11 @@
 
     }
 
-
+    // function openInstruction() {
+    //   const img = document.createElement('img');
+    //   img.src = 'assets/instruction.gif';
+    //   img.style = "position:absolute; bottom:0; right: 0;"
+    // }
 
     function togglePalette() {
 
@@ -127,15 +138,37 @@
       }
     }
 
-    function openOverlay() {
+    function openOverlay(event) {
       event.stopPropagation(); // Prevents the click event from propagating to #slide-up
-      document.getElementById("overlay").style.display = "flex";
+      document.getElementById("instruction-gif").style.display = "flex";
+      console.log("help clicked.");
     }
 
-    function closeOverlay() {
+    function closeOverlay(event) {
       event.stopPropagation(); // Prevents the click event from propagating to #slide-up
-      document.getElementById("overlay").style.display = "none";
+      document.getElementById("instruction-gif").style.display = "none";
     }
+
+    // Update the transform-origin based on mouse position
+    function updateZoomOrigin(event) {
+      const gif = document.querySelector('.overlay-card');
+
+      // Get the bounding rectangle of the GIF
+      const rect = gif.getBoundingClientRect();
+
+      // Calculate the mouse position relative to the GIF
+      const mouseX = event.clientX - rect.left; // X position relative to the GIF
+      const mouseY = event.clientY - rect.top;  // Y position relative to the GIF
+
+      // Normalize the values to a 0 to 1 range
+      const originX = mouseX / rect.width;
+      const originY = mouseY / rect.height;
+
+      // Set the transform-origin to the mouse position
+      gif.style.transformOrigin = `${originX * 100}% ${originY * 100}%`;
+    }
+
+    document.querySelector('.overlay-card').addEventListener('mousemove', updateZoomOrigin);
   </script>
 </body>
 

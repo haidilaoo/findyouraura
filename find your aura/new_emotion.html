@@ -1,29 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
-    <script src="https://unpkg.com/ml5@1/dist/ml5.js"></script> 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ml5/0.10.0/ml5.min.js"></script> -->
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ml5/0.10.0/ml5.min.js"></script> -->
 
 
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
 
-  </head>
-  <body>
-    <main> 
-    </main>
- <div class="center-top-of-canvas">
+</head>
+
+<body>
+  <main>
+  </main>
+  <div class="center-top-of-canvas">
     <p>emotion detected: </p>
     <div id="emotion"></div>
     <a href="palette.html" onclick="saveEmotionAndGoBack()">back</a>
-</div>
-<!-- <a href="palette.html">Press here to start -></a> -->
-</div>
-    
-    <div id="blur-layer"></div>
+  </div>
+  <!-- <a href="palette.html">Press here to start -></a> -->
+  </div>
+  <div id="instruction" onclick="openOverlay(event)">
+    <img src="assets/icon-help.svg">
+  </div>
+  <div id="instruction-gif" class="overlay">
+    <button class="close-btn" onclick="closeOverlay(event)">×</button>
+    <img class="overlay-card" src="assets/instruction.gif">
+  </div>
 
-    <script src="new_emotion.js"></script>
-  </body>
+  <div id="blur-layer"></div>
+
+  <script src="new_emotion.js"></script>
+
+  <script>
+    function openOverlay(event) {
+      event.stopPropagation(); // Prevents the click event from propagating to #slide-up
+      document.getElementById("instruction-gif").style.display = "flex";
+      console.log("help clicked.");
+    }
+
+    function closeOverlay(event) {
+      event.stopPropagation(); // Prevents the click event from propagating to #slide-up
+      document.getElementById("instruction-gif").style.display = "none";
+    }
+
+    // Update the transform-origin based on mouse position
+    function updateZoomOrigin(event) {
+      const gif = document.querySelector('.overlay-card');
+
+      // Get the bounding rectangle of the GIF
+      const rect = gif.getBoundingClientRect();
+
+      // Calculate the mouse position relative to the GIF
+      const mouseX = event.clientX - rect.left; // X position relative to the GIF
+      const mouseY = event.clientY - rect.top;  // Y position relative to the GIF
+
+      // Normalize the values to a 0 to 1 range
+      const originX = mouseX / rect.width;
+      const originY = mouseY / rect.height;
+
+      // Set the transform-origin to the mouse position
+      gif.style.transformOrigin = `${originX * 100}% ${originY * 100}%`;
+    }
+
+    document.querySelector('.overlay-card').addEventListener('mousemove', updateZoomOrigin);
+  </script>
+</body>
+
 </html>
