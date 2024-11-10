@@ -70,7 +70,10 @@ body {
   font-family: 'arista_pro_triallight', sans-serif;
 }
 
-
+a {
+  /* color: blue; */
+  text-decoration: none;
+}
 
 canvas {
   display: block;
