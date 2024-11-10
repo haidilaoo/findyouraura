@@ -46,10 +46,6 @@
     // When the page loads, retrieve the saved emotion label from localStorage
     window.onload = function () {
 
-      // const emotion = localStorage.getItem('emotionLabel'); // Get the saved label
-      // if (emotion) {
-      //   document.getElementById('emotion').innerText = emotion;  // Display it
-      // }
 
       // Retrieve the emotions array from localStorage
       const emotions = JSON.parse(localStorage.getItem('emotionLabels')) || [];
@@ -83,15 +79,6 @@
 
       // Update the particle system with the new texture
       ps.img = particle_texture;
-
-      // Update the current sound
-      // if (emotionSounds[emotion]) {
-      //   currentSound = emotionSounds[emotion];
-      //   console.log("emotion sound set: " + currentSound);
-      // } else {
-      //   currentSound = emotionSounds.default;
-      //   console.log("default emotion sound set: " + emotionSounds.default);
-      // }
 
       // Stop the current sound before switching -> to fix persisting fading sound when switching issue
       if (currentSound && currentSound.isPlaying()) {
