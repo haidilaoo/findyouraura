@@ -129,3 +129,27 @@ function saveEmotionAndGoBack() {
 //   let fs = fullscreen();
 //   fullscreen(!fs); // Toggle fullscreen mode on click
 // }
+
+const emotionSelectionBtns = document.getElementsByClassName('emotion-btn');
+Array.from(emotionSelectionBtns).forEach(btn => {
+  btn.addEventListener('click', selectEmotionAndGoBack);
+});
+
+function selectEmotionAndGoBack(event) {
+  // Check the ID of the clicked button
+  const clickedId = event.target.id;
+  
+  if (clickedId === 'happy') {
+    emotionDetected('happy');
+    console.log("happy btn clicked");
+    window.location.href = "palette.html";    
+  } else if (clickedId === 'sad') {
+    emotionDetected('sad');
+    console.log("sad btn clicked");
+    window.location.href = "palette.html"; 
+  } else if (clickedId === 'meh') {
+    emotionDetected('meh');
+    console.log("meh btn clicked");
+    window.location.href = "palette.html"; 
+  }
+}
