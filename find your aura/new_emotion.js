@@ -8,13 +8,13 @@ let options = {
 };
 
 //emotion tracking
-let classifer; 
+let classifer;
 let imageModelURL = "https://teachablemachine.withgoogle.com/models/Grn6mlVlG/";
 let label = "";
 
 function preload() {
   bodySegmentation = ml5.bodySegmentation("SelfieSegmentation", options);
-  
+
   classifier = ml5.imageClassifier(imageModelURL + "model.json", {
     flipped: true,
   });
@@ -23,7 +23,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);  // Attach canvas to the main tag
   // canvas.parent("overlayCanvasContainer"); // Attach canvas to overlay container
-  
+
   // Create the video
   video = createCapture(VIDEO, { flipped: true });
   video.size(640, 480);
@@ -47,15 +47,15 @@ function draw() {
     for (let x = 0; x < img.width; x++) {
       for (let y = 0; y < img.height; y++) {
         let index = (x + y * img.width) * 4;
-        
+
         let mirroredIndex = ((img.width - x - 1) + y * img.width) * 4; // Calculate the mirrored index
 
-        
+
         // // If the mask's alpha value is 0 (background), set pixel to transparent
         // if (segmentation.mask.pixels[index + 3] === 0) {
         //   img.pixels[index + 3] = 0; // Set alpha to 0 (transparent)
-        
-                if (segmentation.mask.pixels[index + 3] !== 0) {
+
+        if (segmentation.mask.pixels[index + 3] !== 0) {
           // Apply a green mask over the bg(non-person pixels)
           img.pixels[mirroredIndex] = 221;   // Red channel
           img.pixels[mirroredIndex + 1] = 255; // Green channel
@@ -73,7 +73,7 @@ function draw() {
     img.updatePixels();  // Update the video pixels after manipulation
     image(img, 0, 0, width, height, 0, 0, img.width, img.height, COVER);    // Display the video with the mask applied
   }
-  
+
   // Display the label on the canvas
   fill(255);
   textSize(16);
@@ -93,7 +93,7 @@ function gotResults(result) {
 function gotResult(results) {
   // Update the label variable which is displayed on the canvas
   label = results[0].label;
-  
+
 }
 
 function emotionLabel(label) {
@@ -101,22 +101,22 @@ function emotionLabel(label) {
 }
 
 //sending data to palette
-function emotionDetected(label){
+function emotionDetected(label) {
   document.getElementById('emotion').innerText = label;
-   // Save the label value in localStorage
+  // Save the label value in localStorage
   //  localStorage.setItem('emotionLabel', label);
-   // Get existing emotions from localStorage (if any)
+  // Get existing emotions from localStorage (if any)
   let emotions = JSON.parse(localStorage.getItem('emotionLabels')) || [];
 
   console.log(!emotions.includes(label));
   if (label && !emotions.includes(label)) {
-  // Add the new emotion to the array
-  emotions.push(label);
+    // Add the new emotion to the array
+    emotions.push(label);
 
-  // Save the updated array back to localStorage
-  localStorage.setItem('emotionLabels', JSON.stringify(emotions));
+    // Save the updated array back to localStorage
+    localStorage.setItem('emotionLabels', JSON.stringify(emotions));
   }
-  
+
 }
 
 // Function to call emotionDetected when "back" is clicked
@@ -138,18 +138,41 @@ Array.from(emotionSelectionBtns).forEach(btn => {
 function selectEmotionAndGoBack(event) {
   // Check the ID of the clicked button
   const clickedId = event.target.id;
-  
+
   if (clickedId === 'happy') {
     emotionDetected('happy');
     console.log("happy btn clicked");
-    window.location.href = "palette.html";    
+    window.location.href = "palette.html";
   } else if (clickedId === 'sad') {
     emotionDetected('sad');
     console.log("sad btn clicked");
-    window.location.href = "palette.html"; 
+    window.location.href = "palette.html";
   } else if (clickedId === 'meh') {
     emotionDetected('meh');
     console.log("meh btn clicked");
-    window.location.href = "palette.html"; 
+    window.location.href = "palette.html";
+  } else if (clickedId === 'angry') {
+    emotionDetected('angry');
+    console.log("angry btn clicked");
+    window.location.href = "palette.html";
+  } else if (clickedId === 'shy') {
+    emotionDetected('shy');
+    console.log("shy btn clicked");
+    window.location.href = "palette.html";
+  } else if (clickedId === 'tired') {
+    emotionDetected('tired');
+    console.log("tired btn clicked");
+    window.location.href = "palette.html";
+  } else if (clickedId === 'eh') {
+    emotionDetected('eh');
+    console.log("eh btn clicked");
+    window.location.href = "palette.html";
+  }
+
+  else if (clickedId === 'angry') {
+    emotionDetected('angry');
+    console.log("angry btn clicked");
+    window.location.href = "palette.html";
+
   }
 }

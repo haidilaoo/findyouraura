@@ -22,12 +22,22 @@ let Particles = []; // Array to hold trailing particles
 function preload() {
   textures.sad = loadImage("assets/blue_particle.svg");
   textures.happy = loadImage("assets/yellow_particle.svg");
+  textures.eh = loadImage("assets/beige_particle.svg"); 
+  textures.angry = loadImage("assets/red_particle.svg");
+  textures.shy = loadImage("assets/pink_particle.svg");
+  textures.tired = loadImage("assets/grey_particle.svg");
+  textures.meh = loadImage("assets/purple_particle.svg");
   textures.default = loadImage("assets/green_particle.png"); // Default texture
 
 
   //causing some issue for some reason 
   emotionSounds.happy = loadSound('sounds/windchime.wav');
   emotionSounds.sad = loadSound('sounds/sad.wav');
+  emotionSounds.meh = loadSound('sounds/meh.wav');
+  emotionSounds.angry = loadSound('sounds/angry.wav');
+  emotionSounds.shy = loadSound('sounds/shy.mp3');
+  emotionSounds.tired = loadSound('sounds/tired.wav');
+  emotionSounds.eh = loadSound('sounds/eh.wav');
   emotionSounds.default = loadSound('sounds/windchime.wav');
 
 

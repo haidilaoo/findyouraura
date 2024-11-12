@@ -186,6 +186,14 @@ canvas {
 }
 
 /* palette styles */
+/* #emotionList {
+  transition:  transform 0.3s ease;
+}
+
+#emotionList:hover {
+  transform: scale(1.1);
+} */
+
 #instruction {
   position: absolute;
   bottom: 16px;
@@ -228,9 +236,10 @@ canvas {
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    span {
+    p {
       font-family: 'arista_pro_triallight';
-      transition: font-weight 0.3s ease;
+      font-weight: normal;
+      transition: font-weight 0.3s ease, transform 0.3s ease;
     }
 
   }
@@ -242,8 +251,9 @@ canvas {
       /* Scales image on hover */
     }
 
-    span {
-      font-family: 'arista_pro_trialbold' !important;
+    p {
+      font-weight: bold;
+      transform: scale(1.1);
     }
   }
 

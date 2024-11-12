@@ -17,11 +17,11 @@
         <div class="display-flex gap-8 align-center">
           <div class="display-flex gap-8" id="emotionList"></div>
           <div id="newemotion-btn" class="display-flex flex-direction-column gap-8">
-            <button class="remove-default-btn-style display-flex flex-direction-column gap-16 align-center"
+            <button class="remove-default-btn-style display-flex flex-direction-column align-center"
               onclick="window.location.href='new_emotion.html'">
-              <img id="face-svg" src="assets/face.svg">
-              <span style="font-family: 'arista_pro_triallight'; color: #293A94;">+ new
-                emotion</span></button>
+              <img style="padding: 8px;" id="face-svg" src="assets/face.svg">
+              <p style="font-family: 'arista_pro_triallight'; color: #293A94;">+ new
+                emotion</p></button>
           </div>
 
         </div>
@@ -30,6 +30,9 @@
     <div id="instruction" onclick="openOverlay(event)">
       <img src="assets/icon-help.svg">
     </div>
+    <div class="display-flex align-center" style="position: absolute; top:16px; right: 16px; color: #06f;">Press <img
+        style="height: 24px; width: auto; margin-left: 4px; margin-right: 4px;" src="assets/C-keycap.svg"> to clear
+      canvas</div>
     <div id="instruction-gif" class="overlay">
       <button class="close-btn" onclick="closeOverlay(event)">×</button>
       <img class="overlay-card" src="assets/instruction.gif">
@@ -66,8 +69,16 @@
           img.src = 'assets/yellow_particle.svg'; // Set to the path of your happy image
         } else if (emotion === 'sad') {
           img.src = 'assets/blue_particle.svg'; // Set to the path of your sad image
+        } else if (emotion === 'eh') {
+          img.src = 'assets/beige_particle.svg'; // Set to the path of your meh image
+        } else if (emotion === 'shy') {
+          img.src = 'assets/pink_particle.svg';
+        } else if (emotion === 'angry') {
+          img.src = 'assets/red_particle.svg';
+        } else if (emotion === 'tired') {
+          img.src = 'assets/grey_particle.svg';
         } else if (emotion === 'meh') {
-          img.src = 'assets/green_particle.png'; // Set to the path of your meh image
+          img.src = 'assets/purple_particle.svg';
         }
 
         // Set image dimensions
@@ -76,7 +87,7 @@
 
         p.textContent = emotion;
         p.style.color = '#293A94';
-        
+
         // Add an onclick event to set the texture based on the emotion
         p.onclick = function () {
           setEmotionTexture(emotion);
@@ -86,7 +97,19 @@
         container.appendChild(img);
         container.appendChild(p);
         container.style = "display: flex; align-items: center; flex-direction:column; cursor: pointer;"
-        
+        container.style = "display: flex; align-items: center; flex-direction:column; cursor: pointer; transition: transform 0.3s ease; hover: transform:scale(1.1);"
+        container.style.transition = "transform 0.3s ease";
+        // Add hover effect with event listeners
+        container.addEventListener("mouseover", () => {
+          container.style.transform = "scale(1.1)";
+          p.style.fontWeight = "bold";
+        });
+
+        container.addEventListener("mouseout", () => {
+          container.style.transform = "scale(1)";
+          p.style.fontWeight = "normal";
+        });
+
         //hover text effect -> not working as it shld atm
         // container.addEventListener("mouseover", () => {
         //   p.style.fontFamily = "arista_pro_trailbold"; // Apply hover style

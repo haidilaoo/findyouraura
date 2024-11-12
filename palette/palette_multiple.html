@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/addons/p5.sound.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
+
+</head>
+
+<body>
+  <main>
+    <a href="index.html"><img class="title-svg" src="assets/title.svg"></a>
+    <div id="slide-up" onclick="togglePalette()"><img style="color: white;" id="arrow" src="assets/arrow-up.svg">
+      <div id="palette">
+        <div class="display-flex gap-8 align-center">
+          <div class="display-flex gap-8" id="emotionList"></div>
+          <div id="newemotion-btn" class="display-flex flex-direction-column gap-8">
+            <button class="remove-default-btn-style display-flex flex-direction-column gap-16 align-center"
+              onclick="window.location.href='new_emotion.html'">
+              <img id="face-svg" src="assets/face.svg">
+              <span style="font-family: 'arista_pro_triallight'; color: #293A94;">+ new
+                emotion</span></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div id="instruction" onclick="openOverlay(event)">
+      <img src="assets/icon-help.svg">
+    </div>
+    <div id="instruction-gif" class="overlay">
+      <button class="close-btn" onclick="closeOverlay(event)">×</button>
+      <img class="overlay-card" src="assets/instruction.gif">
+    </div>
+  </main>
+  <script src="palette_sketch_multipletrails.js"></script>
+  <!-- <script src="new_emotion.js"></script> -->
+  <script>
+
+    // Event listener to handle page visibility change -> stop sound when user leaves browser
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && currentSound && currentSound.isPlaying()) {
+        currentSound.stop(); // Stop sound if the page is hidden
+        isFadingOut = false; // Reset fading state
+      }
+    });
+
+    // When the page loads, retrieve the saved emotion label from localStorage
+    window.onload = function () {
+
+
+      // Retrieve the emotions array from localStorage
+      const emotions = JSON.parse(localStorage.getItem('emotionLabels')) || [];
+      console.log(emotions);
+      // Get the <ul> element where emotions will be displayed
+      const emotionList = document.getElementById('emotionList');
+
+      // Display each emotion as a list item
+      emotions.forEach(function (emotion) {
+        const img = document.createElement('img'); // Use 'img' if using image URLs, or 'svg' for inline SVG
+        const p = document.createElement('p');
+        // Set the img source based on emotion
+        if (emotion === 'happy') {
+          img.src = 'assets/yellow_particle.svg'; // Set to the path of your happy image
+        } else if (emotion === 'sad') {
+          img.src = 'assets/blue_particle.svg'; // Set to the path of your sad image
+        } else if (emotion === 'meh') {
+          img.src = 'assets/green_particle.png'; // Set to the path of your meh image
+        }
+
+        // Set image dimensions
+        img.style.width = '150px'; // Set width in pixels
+        img.style.height = '150px'; // Set height in pixels
+
+        p.textContent = emotion;
+        p.style.color = '#293A94';
+        
+        // Add an onclick event to set the texture based on the emotion
+        p.onclick = function () {
+          setEmotionTexture(emotion);
+        };
+        // Append the image and text to the container
+        const container = document.createElement('div');
+        container.appendChild(img);
+        container.appendChild(p);
+        container.style = "display: flex; align-items: center; flex-direction:column; cursor: pointer;"
+        
+        //hover text effect -> not working as it shld atm
+        // container.addEventListener("mouseover", () => {
+        //   p.style.fontFamily = "arista_pro_trailbold"; // Apply hover style
+        // });
+
+        // container.addEventListener("mouseout", () => {
+        //   p.style.fontFamily = "arista_pro_triallight"; // Remove hover style
+        // });
+
+        container.onclick = function () {
+          setEmotionTexture(emotion);
+        };
+        // emotionList.appendChild(p);
+        emotionList.appendChild(container);
+      });
+    };
+
+    function setEmotionTexture(emotion) {
+      // Update the particle texture if the emotion exists in the textures object
+      if (textures[emotion]) {
+        particle_texture = textures[emotion];
+
+        console.log("emotion texture set: " + particle_texture);
+
+      } else {
+        particle_texture = textures.default; // Fallback to default if emotion texture is missing
+        console.log("default emotion texture set: " + textures.default);
+      }
+
+      // Update the particle system with the new texture
+      ps.img = particle_texture;
+
+      // Stop the current sound before switching -> to fix persisting fading sound when switching issue
+      if (currentSound && currentSound.isPlaying()) {
+        currentSound.stop();
+      }
+      // Set the new sound based on the emotion
+      currentSound = emotionSounds[emotion] || emotionSounds.default;
+      isFadingOut = false; // Reset fade-out when switching
+
+    }
+
+    // function openInstruction() {
+    //   const img = document.createElement('img');
+    //   img.src = 'assets/instruction.gif';
+    //   img.style = "position:absolute; bottom:0; right: 0;"
+    // }
+
+    function togglePalette() {
+
+      const slideUp = document.getElementById("slide-up");
+      const arrow = document.getElementById("arrow");
+
+      if (slideUp.style.bottom === "235px") {
+        slideUp.style.bottom = "0px"; // Close
+        arrow.classList.remove("rotate"); // Reset rotation
+      } else {
+        slideUp.style.bottom = "235px"; // Open
+        arrow.classList.add("rotate"); // Apply rotation
+      }
+    }
+
+    function openOverlay(event) {
+      event.stopPropagation(); // Prevents the click event from propagating to #slide-up
+      document.getElementById("instruction-gif").style.display = "flex";
+      console.log("help clicked.");
+    }
+
+    function closeOverlay(event) {
+      event.stopPropagation(); // Prevents the click event from propagating to #slide-up
+      document.getElementById("instruction-gif").style.display = "none";
+    }
+
+    // Update the transform-origin based on mouse position
+    function updateZoomOrigin(event) {
+      const gif = document.querySelector('.overlay-card');
+
+      // Get the bounding rectangle of the GIF
+      const rect = gif.getBoundingClientRect();
+
+      // Calculate the mouse position relative to the GIF
+      const mouseX = event.clientX - rect.left; // X position relative to the GIF
+      const mouseY = event.clientY - rect.top;  // Y position relative to the GIF
+
+      // Normalize the values to a 0 to 1 range
+      const originX = mouseX / rect.width;
+      const originY = mouseY / rect.height;
+
+      // Set the transform-origin to the mouse position
+      gif.style.transformOrigin = `${originX * 100}% ${originY * 100}%`;
+    }
+
+    document.querySelector('.overlay-card').addEventListener('mousemove', updateZoomOrigin);
+  </script>
+</body>
+
+</html>
