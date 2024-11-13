@@ -38,7 +38,7 @@ function preload() {
   emotionSounds.shy = loadSound('sounds/shy.mp3');
   emotionSounds.tired = loadSound('sounds/tired.wav');
   emotionSounds.eh = loadSound('sounds/eh.wav');
-  emotionSounds.default = loadSound('sounds/windchime.wav');
+  emotionSounds.default = loadSound('sounds/default.mp3');
 
 
 }

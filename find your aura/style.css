@@ -75,6 +75,23 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: 15%;
+  /* 2.4px */
+  text-underline-position: from-font;
+}
+
+#add-emotion-btn:hover {
+  background: #06F;
+  cursor: pointer;
+  color: white !important;
+  text-decoration: none;
+}
+
 canvas {
   display: block;
   z-index: 1;
@@ -123,9 +140,23 @@ canvas {
   transform: translate(-50%, -50%);
   z-index: 3;
 
+  img {
+    cursor: pointer;
+  }
+
   a {
     color: blue;
     text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: auto;
+    text-underline-offset: 15%;
+    /* 2.4px */
+    text-underline-position: from-font;
   }
 }
 
@@ -154,6 +185,50 @@ canvas {
   /* color: white; */
   filter: blur(50px);
   z-index: 3;
+}
+
+#abstract {
+  button {
+    color: #06F;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: auto;
+    text-underline-offset: 15%;
+    /* 2.4px */
+    text-underline-position: from-font;
+  }
+}
+
+#abstract-text {
+
+  text-align: justify !important;
+  align-self: stretch;
+  width: 409px;
+
+}
+
+#credit {
+  display: flex;
+  padding: 12px 107px 2px 107px;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  border-top: 1px solid rgba(98, 159, 249, 0.50);
+
+  p {
+    color: rgba(98, 159, 249, 0.70) !important;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
 }
 
 #blur-layer {
@@ -257,11 +332,6 @@ canvas {
     }
   }
 
-
-
-
-
-
   .rotate {
     transform: rotate(180deg);
     /* Rotates the image 180 degrees */
@@ -270,6 +340,8 @@ canvas {
   }
 
   #palette {
+
+
     height: 235px;
     width: 1280px;
     /* transform: rotate(90deg); */
@@ -281,6 +353,8 @@ canvas {
     box-shadow: 0 -10px 54px rgba(3, 32, 75, 0.06);
 
   }
+
+
 }
 
 

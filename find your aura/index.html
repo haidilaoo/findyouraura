@@ -22,7 +22,7 @@
     </div>
     <!--     <div id="title">find your aura</div> -->
     <div id="title">
-      <img class="floating" src="assets/title.svg" width="396" height="187">
+      <img class="floating" src="assets/title.svg" width="396" height="187" onclick="openAbstract(event)">
       <!-- <svg class="floating" width="396" height="187" viewBox="0 0 396 187" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
@@ -50,6 +50,21 @@
       <a href="palette.html">Press here to start -></a>
     </div>
   </div>
+  <!-- abstract overlay -->
+  <div id="abstract" class="overlay">
+    <div>
+      <div id="selection-card">
+        <h1>find your aura ~</h1>
+        <p id="abstract-text">"Find Your Aura" is an immersive audiovisual website that draws inspiration from the popular Gen Z concept of "aura," a reflection of one's emotional energy.<br>
+          <br>
+          The atmosphere of the visuals and sounds shifts based on facial expressions. Through these interactions, "Find Your Aura" allows participants to explore and express their emotional states in real time.
+         </p>
+         <div id="credit"><p>made by lee si, heidi</p></div>
+        <button class="remove-default-btn-style" onclick="closeOverlay(event)">close</button>
+      </div>
+    </div>
+  </div>
+  <!-- instruction overlay -->
   <div id="instruction" onclick="openOverlay(event)">
     <img src="assets/icon-help.svg">
   </div>
@@ -63,6 +78,11 @@
   <script src="sketch.js"></script>
 
   <script>
+    function openAbstract(event) {
+      document.getElementById("abstract").style.display = "flex";
+    }
+
+
     function openOverlay(event) {
       event.stopPropagation(); // Prevents the click event from propagating to #slide-up
       document.getElementById("instruction-gif").style.display = "flex";
@@ -72,6 +92,7 @@
     function closeOverlay(event) {
       event.stopPropagation(); // Prevents the click event from propagating to #slide-up
       document.getElementById("instruction-gif").style.display = "none";
+      document.getElementById("abstract").style.display = "none";
     }
 
     // Update the transform-origin based on mouse position
@@ -94,7 +115,7 @@
     }
 
     document.querySelector('.overlay-card').addEventListener('mousemove', updateZoomOrigin);
-    </script>
+  </script>
 </body>
 
 </html>
