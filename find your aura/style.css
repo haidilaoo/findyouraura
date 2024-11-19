@@ -290,7 +290,7 @@ canvas {
   flex-shrink: 0;
   border-radius: 10px 10px 0px 0px;
   background: #0066FF;
-
+  cursor: pointer;
 
   position: fixed;
   bottom: 0;
@@ -303,6 +303,8 @@ canvas {
   align-items: center;
   transition: 0.5s;
 
+
+  
   
 
 }
@@ -322,12 +324,17 @@ canvas {
 
 }
 
-#slide-up-img {
+#arrow {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
 }
-
+.rotate {
+  transform: rotate(180deg);
+  /* Rotates the image 180 degrees */
+  transition: transform 0.3s ease;
+  /* Smooth transition */
+}
 #newemotion-btn {
   #face-svg {
     width: 127px;
@@ -356,13 +363,6 @@ canvas {
     font-weight: bold;
     transform: scale(1.1);
   }
-}
-
-.rotate {
-  transform: rotate(180deg);
-  /* Rotates the image 180 degrees */
-  transition: transform 0.3s ease;
-  /* Smooth transition */
 }
 
 
