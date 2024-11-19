@@ -339,21 +339,22 @@ canvas {
     /* Smooth transition */
   }
 
-  #palette {
 
 
-    height: 235px;
-    width: 1280px;
-    /* transform: rotate(90deg); */
-    flex-shrink: 0;
-    padding: 16px;
+}
 
-    border-radius: 10px 10px 0px 0px;
-    background: #E5EEF2;
-    box-shadow: 0 -10px 54px rgba(3, 32, 75, 0.06);
+#palette {
 
-  }
 
+  height: 235px;
+  width: 1280px;
+  /* transform: rotate(90deg); */
+  flex-shrink: 0;
+  padding: 16px;
+
+  border-radius: 10px 10px 0px 0px;
+  background: #E5EEF2;
+  box-shadow: 0 -10px 54px rgba(3, 32, 75, 0.06);
 
 }
 
