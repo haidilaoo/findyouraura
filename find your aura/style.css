@@ -489,7 +489,6 @@ canvas {
   }
 }
 
-
 #selection-card .emotion-btn {
   display: flex;
   width: 103px;
@@ -503,49 +502,50 @@ canvas {
   border-radius: 8px;
   border: 1.25px solid #06F;
   background: #FFF;
-
-  img {
-    width: 63px;
-    height: 28px;
-    flex-shrink: 0;
-  }
-
-  svg {
-    width: 63px;
-    height: 28px;
-    flex-shrink: 0;
-    /* margin-top:24px; */
-  }
-
-  p {
-    align-self: stretch;
-    color: #06F;
-    text-align: center;
-    /* font-family: "Arista Pro Trial"; */
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
-    margin:0px;
-  }
 }
+
+#selection-card .emotion-btn img {
+  width: 63px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+#selection-card .emotion-btn svg {
+  width: 63px;
+  height: 28px;
+  flex-shrink: 0;
+  /* margin-top: 24px; */
+}
+
+#selection-card .emotion-btn p {
+  align-self: stretch;
+  color: #06F;
+  text-align: center;
+  /* font-family: "Arista Pro Trial"; */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  margin: 0px;
+}
+
 
   
-#selection-card .emotion-btn:hover {
+  
 
+
+#selection-card .emotion-btn:hover {
   background: #06F;
   cursor: pointer;
-
-  p {
-    color: white;
-  }
-
-  path {
-    fill: white;
-  }
-
 }
 
+#selection-card .emotion-btn:hover p {
+  color: white;
+}
+
+#selection-card .emotion-btn:hover path {
+  fill: white;
+}
 
 
 
